@@ -14,7 +14,7 @@ Page({
   onLoad: function (options) {
     var that = this
     wx.request({
-      url: 'http://localhost:8888/data/seatdata?data=' + options.shop,
+      url: getApp().data.host + '/data/seatdata?data=' + options.shop,
       data: {},
       method: 'GET',
       success: function (res) {
@@ -88,11 +88,11 @@ Page({
       })
     }
     else {
-     wx.showToast({
-  title: '最多选4个座位',
-  icon: 'success',
-  duration: 2000
-})
+      wx.showToast({
+        title: '最多选4个座位',
+        icon: 'success',
+        duration: 2000
+      })
     }
   },
   cancelSeat: function (ev) {

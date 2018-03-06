@@ -15,7 +15,7 @@ Page({
     })
     var that = this;
     wx.request({
-      url: 'http://localhost:8888/data/indexTheater?city='+that.data.currentCity+'&id='+id+'&index=0',
+      url: getApp().data.host + '/data/indexTheater?city=' + that.data.currentCity + '&id=' + id + '&index=0',
       success: function (res) {
         that.setData({
           theater: res.data.data
@@ -28,7 +28,7 @@ Page({
       activeIndex: ev.target.id
     })
     wx.request({
-      url: 'http://localhost:8888/data/indexTheater?city='+that.data.currentCity+'&id='+id+'&index='+ev.target.id,
+      url: getApp().data.host + '/data/indexTheater?city=' + that.data.currentCity + '&id=' + id + '&index=' + ev.target.id,
       success: function (res) {
         that.setData({
           theater: res.data.data

@@ -8,7 +8,7 @@ Page({
    var title = param.title;
    var id=param.id;
     wx.request({
-      url: 'http://localhost:8888/api/moviesDetail?title=' + param.title,
+      url: getApp().data.host+'/api/moviesDetail?title=' + param.title,
       data: {},
       success: function (res) {
         that.setData({

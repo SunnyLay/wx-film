@@ -16,7 +16,7 @@ Page({
     var value = ev.detail.value
     console.log(value)
     wx.request({
-      url: 'http://localhost:8888/api/search',
+      url: getApp().data.host + '/api/search',
       data: {
         key: value
       },
@@ -24,7 +24,7 @@ Page({
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       success: function (res) {
         var data = res.data
-        if (data.code == 200&&data.data) {
+        if (data.code == 200 && data.data) {
           that.setData({
             theater: data.data
           })
@@ -38,12 +38,12 @@ Page({
     })
 
   },
-  navWanda:function(ev){
+  navWanda: function (ev) {
     var that = this
     var value = ev.currentTarget.dataset.theater
     console.log(value)
     wx.request({
-      url: 'http://localhost:8888/api/search',
+      url: getApp().data.host+'/api/search',
       data: {
         key: value
       },
@@ -51,7 +51,7 @@ Page({
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       success: function (res) {
         var data = res.data
-        if (data.code == 200&&data.data) {
+        if (data.code == 200 && data.data) {
           that.setData({
             theater: data.data
           })
@@ -65,18 +65,18 @@ Page({
     })
 
   },
-clearHis:function(ev){
-var index=ev.currentTarget.dataset.clear
-var his=this.data.search.his
-his.splice(index,1)
-this.setData({
-  'search.his':his
-})
+  clearHis: function (ev) {
+    var index = ev.currentTarget.dataset.clear
+    var his = this.data.search.his
+    his.splice(index, 1)
+    this.setData({
+      'search.his': his
+    })
 
-console.log(index)
+    console.log(index)
 
 
-},
+  },
 
 
 

@@ -15,7 +15,7 @@ Page({
       'head.currentCity': app.globalData.currentCity
     })
     wx.request({
-      url: 'http://localhost:8888/data/cityTheater?city=武汉',
+      url: getApp().data.host + '/data/cityTheater?city=武汉',
       success: function (res) {
         that.setData({
           theater: res.data.data

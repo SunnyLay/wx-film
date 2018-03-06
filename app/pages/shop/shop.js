@@ -1,30 +1,30 @@
 var event = require('../../utils/event')
-var util=require('../../utils/util')
-var threedays=util.getWeek(3)
+var util = require('../../utils/util')
+var threedays = util.getWeek(3)
 Page({
   data: {
     activeindex: 2,
     shop: {},
     imgUrl: '',
-    activemovie:{},
-    threedays:threedays,
-    theday:0
+    activemovie: {},
+    threedays: threedays,
+    theday: 0
   },
   onLoad: function (options) {
     var that = this
-    
+
     console.log('shop-onLoad')
     wx.request({
-      url: 'http://localhost:8888/shop/',
+      url: getApp().data.host + '/shop/',
       success: function (res) {
         console.log(res.data.data)
         var shop = res.data.data
         var imgUrl = shop.movies[2].cover
-        var activemovie=shop.movies[2]
+        var activemovie = shop.movies[2]
         that.setData({
           shop: shop,
           imgUrl: imgUrl,
-          activemovie:activemovie
+          activemovie: activemovie
         })
       }
     })
@@ -55,13 +55,13 @@ Page({
     this.setData({
       imgUrl: that.data.shop.movies[activeindex].cover,
       activeindex: activeindex,
-      activemovie:that.data.shop.movies[activeindex]
+      activemovie: that.data.shop.movies[activeindex]
     })
   },
-  selectDate:function(e){
-var theday=e.currentTarget.id
-this.setData({
-  theday:theday
-})
+  selectDate: function (e) {
+    var theday = e.currentTarget.id
+    this.setData({
+      theday: theday
+    })
   }
 })
