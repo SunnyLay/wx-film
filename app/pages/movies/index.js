@@ -35,7 +35,7 @@ Page({
           if (res.data.code == 0) {
             that.setData({
               movies: res.data.content,
-              start: that.data.start + that.data.counts
+              page: that.data.page+1
             })
           } else {
             wx.showToast({
@@ -64,16 +64,40 @@ Page({
 
   onReachBottom: function () {
     var that = this
+    // wx.request({
+    //   url: getApp().data.host + '/api/index?city=' + that.data.currentCity + '&counts=' + that.data.counts + '&start=' + that.data.start,
+    //   success: function (res) {
+    //     var moviesLi = that.data.indexData.moviesList
+    //     var nextLi = res.data.data.moviesList;
+    //     var newLi = moviesLi.concat(nextLi)
+    //     that.setData({
+    //       'indexData.moviesList': newLi,
+    //       start: that.data.start + that.data.counts
+    //     })
+    //   }
+    // })
     wx.request({
-      url: getApp().data.host + '/api/index?city=' + that.data.currentCity + '&counts=' + that.data.counts + '&start=' + that.data.start,
+      url: getApp().data.newHost + '/film/getHotMovies/' + that.data.page + '/' + that.data.size,
       success: function (res) {
-        var moviesLi = that.data.indexData.moviesList
-        var nextLi = res.data.data.moviesList;
+        var moviesLi = that.data.movies
+        var nextLi = res.data.content;
+        console.info(nextLi);
         var newLi = moviesLi.concat(nextLi)
+        if (nextLi.length == 0){
+          wx.showToast({
+            title: '暂无更多数据',
+            duration: 2000
+          })
+        }else{
+          wx.showToast({
+            title: '加载成功',
+            duration: 1000
+          })
         that.setData({
-          'indexData.moviesList': newLi,
-          start: that.data.start + that.data.counts
+          movies: newLi,
+          page: that.data.page + 1
         })
+        }
       }
     })
   }
