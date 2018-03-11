@@ -9,7 +9,7 @@
   </block>
 </swiper>
 <block wx:for="{{movies}}">
-  <navigator url="./detail/detail?title={{item.title}}&id={{item.id}}">
+  <navigator url="./detail/detail?id={{item.id}}">
     <view style="height:216rpx;" class="movie">
       <image src="{{item.img}}" style="height:172rpx;width:122rpx;"></image>
       <view class="intro-warp">

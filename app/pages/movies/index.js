@@ -40,7 +40,7 @@ Page({
           } else {
             wx.showToast({
               title: res.data.msg,
-              content:res.msg,
+              content: res.data.msg,
               icon: 'fail',
               duration: 2000
             })
