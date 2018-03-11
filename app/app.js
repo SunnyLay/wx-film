@@ -1,7 +1,8 @@
 var qqmap = require('./vendor/qqmap-sdk.min.js')
 App({
   data: {
-    host: 'http://120.77.37.251:8888'
+    host: 'http://120.77.37.251:8888',
+    newHost:'http://localhost:8081/chao'
   },
   onLaunch: function () {
   },

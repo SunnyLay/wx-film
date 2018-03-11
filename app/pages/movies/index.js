@@ -5,12 +5,15 @@ Page({
   data: {
     head: {
       currentCity: '',
-      placestr: '找影视剧 影人 影院'
+      placestr: '找电影 影院'
     },
 
     indexData: {},
     counts: 10,
-    start: 0
+    start: 1,
+    movies:{},
+    page: 1,
+    size: 10
   },
   onLoad: function () {
     var that = this
@@ -18,13 +21,33 @@ Page({
     wx.request({
       url: getApp().data.host + '/api/index?city=' + that.data.currentCity + '&counts=' + that.data.counts + '&start=' + that.data.start,
       success: function (res) {
-        console.log(res.data)
-        that.setData({
-          indexData: res.data.data,
-          start: that.data.start + that.data.counts
-        })
+        //     console.log(res.data)
+        //     that.setData({
+        //       indexData: res.data.data,
+        //       start: that.data.start + that.data.counts
+        //     })
       }
-    })
+    }),
+      wx.request({
+        url: getApp().data.newHost + '/film/getHotMovies/' + that.data.page + '/' + that.data.size,
+        success: function (res) {
+          console.log(res);
+          if (res.data.code == 0) {
+            that.setData({
+              movies: res.data.content,
+              start: that.data.start + that.data.counts
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              content:res.msg,
+              icon: 'fail',
+              duration: 2000
+            })
+          }
+
+        }
+      })
 
   },
   onShow: function () {
