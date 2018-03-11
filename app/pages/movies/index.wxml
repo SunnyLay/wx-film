@@ -1,5 +1,5 @@
 <import src="../../common/template/head.wxml" />
-<template is="head" data="{{...head}}"/>
+<template is="head" data="{{...head}}" />
 
 <swiper style="height:150rpx;" autoplay="true" interval="2000" circular="true">
   <block wx:for="{{indexData.swiperImg}}" wx:key="*this">
@@ -17,15 +17,15 @@
           <view style="font-size:30rpx; color:#222222">{{item.nm}}</view>
           <view style="font-size:24rpx; color:#686868">{{item.cat}}</view>
           <view style="font-size:24rpx;white-space:nowrap;text-overflow:ellipsis;overflow:hidden; color:#686868">{{item.star}}</view>
-          <view style="font-size:24rpx; color:#A3A3A3;" wx:if="{{item.preSale}}">{{item.showInfo}}</view>
-          <view style="font-size:24rpx; color:#A3A3A3;" wx:else>{{item.dataline}}</view>
+          <view style="font-size:24rpx; color:#A3A3A3;">
+          {{item.showInfo}}</view>
         </view>
         <view class="buy">
           <view class="rating" wx:if="{{item.preSale == 0}}">
             <text>{{item.sc}}</text>
             <text style="font-size:18rpx;">分</text>
           </view>
-          <view class="rating"style="font-size:18rpx;" wx:else>
+          <view class="rating" style="font-size:18rpx;" wx:else>
             <text>{{item.wish}}</text>
             <text style="font-size:18rpx;">想看</text>
           </view>
