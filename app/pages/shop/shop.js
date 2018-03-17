@@ -8,12 +8,23 @@ Page({
     imgUrl: '',
     activemovie: {},
     threedays: threedays,
-    theday: 0
+    theday: 0,
+    lng:1,
+    lat:1,
+    cinemasId:1
   },
   onLoad: function (options) {
-    var that = this
-
-    console.log('shop-onLoad')
+    //加载参数
+    var cinemasId = options.cinemasId;
+    var lng = options.lng;
+    var lat = options.lat;
+    that.setData({
+      cinemasId: cinemasId,
+      lng:lng,
+      lat:lat
+    })
+    var that = this;
+    //请求影院的详细数据
     wx.request({
       url: getApp().data.host + '/shop/',
       success: function (res) {
@@ -21,13 +32,39 @@ Page({
         var shop = res.data.data
         var imgUrl = shop.movies[2].cover
         var activemovie = shop.movies[2]
-        that.setData({
-          shop: shop,
-          imgUrl: imgUrl,
-          activemovie: activemovie
-        })
+        // that.setData({
+        //   shop: shop,
+        //   imgUrl: imgUrl,
+        //   activemovie: activemovie
+        // })
       }
     })
+    wx.request({
+      url: getApp().data.host + '/shop/',
+      success: function (res) {
+        console.log(res.data.data)
+        var shop = res.data.data
+        var imgUrl = shop.movies[2].cover
+        var activemovie = shop.movies[2]
+        // that.setData({
+        //   shop: shop,
+        //   imgUrl: imgUrl,
+        //   activemovie: activemovie
+        // })
+      }
+    })
+
+    wx.requestPayment(
+      {
+        'timeStamp': '1490840662',
+        'nonceStr': '5K8264ILTKCH16CQ2502SI8ZNMTM67VS',
+        'package': 'prepay_id=wx2017033010242291fcfe0db70013231072',
+        'signType': 'MD5',
+        'paySign': '',
+        'success': function (res) { },
+        'fail': function (res) { },
+        'complete': function (res) { }
+      })
   },
   openMap: function () {
     var that = this

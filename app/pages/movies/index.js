@@ -41,7 +41,6 @@ Page({
             wx.showToast({
               title: res.data.msg,
               content: res.data.msg,
-              icon: 'fail',
               duration: 2000
             })
           }
@@ -85,12 +84,14 @@ Page({
         var newLi = moviesLi.concat(nextLi)
         if (nextLi.length == 0){
           wx.showToast({
-            title: '暂无更多数据',
+            title: '暂无更多数据...',
+            icon: 'none',
             duration: 2000
           })
         }else{
           wx.showToast({
-            title: '加载成功',
+            title: '加载中',
+            icon:'loading',
             duration: 1000
           })
         that.setData({
