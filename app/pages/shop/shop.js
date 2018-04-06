@@ -11,10 +11,13 @@ Page({
     theday: 0,
     lng:1,
     lat:1,
-    cinemasId:1
+    cinemasId:1,
+    currentDateShowId:0
   },
   onLoad: function (options) {
     //加载参数
+    var that = this;
+    console.info(options);
     var cinemasId = options.cinemasId;
     var lng = options.lng;
     var lat = options.lat;
@@ -23,7 +26,7 @@ Page({
       lng:lng,
       lat:lat
     })
-    var that = this;
+   
     //请求影院的详细数据
     wx.request({
       url: getApp().data.host + '/shop/',
@@ -37,6 +40,31 @@ Page({
         //   imgUrl: imgUrl,
         //   activemovie: activemovie
         // })
+      }
+    })
+    //请求影院的详细数据
+    wx.request({
+      url: getApp().data.newHost + '/film/get-cinema-and-movie/' + that.data.cinemasId,
+      success: function (res) {
+        console.log(res.data.data);
+        console.log(res.data.content.cinemasDatailModel);
+        console.log(res);
+        console.info(res.data.content.dateShow[0]);
+        if (res.data.code == 0) {
+          that.setData({
+            cinemaDetailModel: res.data.content.cinemaDetailModel,
+            movies: res.data.content.movies,
+            currentMovie: res.data.content.currentMovie,
+            dateShow: res.data.content.dateShow,
+            currentDateShow: res.data.content.dateShow[0]
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            content: res.data.msg,
+            duration: 2000
+          })
+        }
       }
     })
     wx.request({
@@ -88,17 +116,42 @@ Page({
   tapselect: function (e) {
     console.log(e.currentTarget.id)
     var that = this
-    var activeindex = Number(e.currentTarget.id)
-    this.setData({
-      imgUrl: that.data.shop.movies[activeindex].cover,
-      activeindex: activeindex,
-      activemovie: that.data.shop.movies[activeindex]
+    var id = Number(e.currentTarget.id)
+    //请求影院的详细数据
+    wx.request({
+      url: getApp().data.newHost + '/film/get-cinema-and-movie/' + that.data.cinemasId,
+      data:{
+         movieId : id
+      },
+      success: function (res) {
+        console.log(res.data.data);
+        console.log(res.data.content.cinemasDatailModel);
+        console.log(res);
+        console.info(res.data.content.dateShow[0]);
+        if (res.data.code == 0) {
+          that.setData({
+            cinemaDetailModel: res.data.content.cinemaDetailModel,
+            movies: res.data.content.movies,
+            currentMovie: res.data.content.currentMovie,
+            dateShow: res.data.content.dateShow,
+            currentDateShow: res.data.content.dateShow[0]
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            content: res.data.msg,
+            duration: 2000
+          })
+        }
+      }
     })
   },
   selectDate: function (e) {
-    var theday = e.currentTarget.id
+    var id = e.currentTarget.id;
+    var that = this;
     this.setData({
-      theday: theday
+      currentDateShow: that.data.dateShow[id],
+      currentDateShowId:id
     })
   }
 })

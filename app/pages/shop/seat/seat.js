@@ -12,21 +12,49 @@ Page({
     hasSelected: false,
   },
   onLoad: function (options) {
-    var that = this
+    console.log(options);
+    var showId = options.showId;
+    var showDate = options.showDate;
+    var that = this;
     wx.request({
-      url: getApp().data.host + '/data/seatdata?data=' + options.shop,
-      data: {},
+      url: getApp().data.newHost + '/film/get-seats',
+      data: {
+        showId: showId,
+        showDate: showDate
+      },
       method: 'GET',
       success: function (res) {
-        var shop = res.data.data
-        console.log(res.data)
-        that.setData({
-          shop: shop,
-          map: shop.seat
-        })
+        console.log(res);
+        if (res.data.code == 0) {
+          that.setData({
+            showInfo: res.data.content.showInfo,
+            sections: res.data.content.sections,
+            map: res.data.content.sections[0].map
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            content: res.data.msg,
+            duration: 2000
+          })
+        }
       }
     })
-  },
+    // wx.request({
+    //   url: getApp().data.host + '/data/seatdata?data=' + options.shop,
+    //   data: {},
+    //   method: 'GET',
+    //   success: function (res) {
+    //     var shop = res.data.data
+    //     console.log(res.data)
+    //     that.setData({
+    //       shop: shop,
+    //       map: shop.seat
+    //     })
+    //   }
+    // })
+  }
+  ,
   onReady: function () {
     var columnArr = []
     var map = this.data.map
