@@ -1,11 +1,32 @@
-<view></view>
-<view class="warp">
-  <view class="item">我的订单</view>
-  <view class="item">优惠券</view>
-  <view class="item last">影院会员卡</view>
+<!-- 个人信息 -->
+<view class="summary">
+  <!-- <view class="avatar-container"> -->
+  <image src="{{avatarUrl ? avatarUrl : '/img/icon/default-avatar.png'}}" class="avatar" />
+  <!-- </view> -->
+  <view class="nickname">{{nickName}}</view>
 </view>
-<view class="warp">
-  <view class="item">想看的电影</view>
-  <view class="item last">看过的电影</view>
+<!-- 账户 -->
+<view class="account">
+  <view class="item">
+    <view class="value balance">
+      <image class="filmTicket" src="/img/tab/1s.png"></image>
+    </view>
+    <view class="caption">电影票</view>
+  </view>
+  <view class="item">
+    <view class="value coupon">
+     <image class="filmTicket" src="/img/icon/13.png"></image>
+    </view>
+    <view class="caption">优惠券</view>
+  </view>
+  <view class="item">
+    <view class="value credit">
+     <image class="filmTicket" src="/img/icon/backup.png"></image>
+    </view>
+    <view class="caption">历史记录</view>
+  </view>
 </view>
-<view></view>
+<!-- 退出登录 -->
+
+<view class="logout" bindtap="logout" wx:if="{{avatarUrl}}"> 退出登录 </view>
+<view class="logout" bindtap="login"  wx:else> 登陆 </view>

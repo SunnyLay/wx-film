@@ -6,6 +6,7 @@ App({
    // newHost: 'http://120.77.37.251:13000/chao'
   },
   onLaunch: function () {
+    this.login();
   },
   getpol: function (cb) {
     var that = this
@@ -74,5 +75,31 @@ App({
     positionCity: '',
     currentCity: '',
     remind: false
+  },
+  login: function () {
+    /**
+     * 获取code和用户信息
+     */
+    wx.login({
+      success: function (res) {
+        console.log(res);
+        wx.getUserInfo({
+          success: function (res) {
+            var simpleUser = res.userInfo;
+            //console.log(simpleUser.nickName);
+            console.log(res);
+            //存入昵称缓存 - 同步
+            wx.setStorageSync('nickName', simpleUser.nickName);
+            wx.setStorageSync('avatarUrl', simpleUser.avatarUrl);
+            wx.setStorageSync('gender', simpleUser.gender);
+          }
+        });
+      }
+    });
+  },
+  logout:function(){
+    wx.removeStorageSync('nickName');
+    wx.removeStorageSync('avatarUrl');
+    wx.removeStorageSync('gender');
   }
 })

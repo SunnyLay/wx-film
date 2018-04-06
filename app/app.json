@@ -27,7 +27,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#D43E37",
-    "navigationBarTitleText": "猫眼电影"
+    "navigationBarTitleText": "电影"
   },
   "tabBar": {
     "color": "#6A6767",
