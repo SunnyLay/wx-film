@@ -60,14 +60,24 @@
   font-size: 30rpx;
 }
 
-.lower {
-  color: #EF4238;
+.dist {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  font-size: 30rpx;
 }
-.lowerN{
+
+.lower {
+  color: #ef4238;
+}
+
+.lowerN {
   font-size: 26rpx;
   margin-left: 20rpx;
 }
-.lowerL{
+
+.lowerL {
   font-size: 22rpx;
 }
 
@@ -81,14 +91,12 @@
   display: flex;
   font-size: 22rpx;
   margin-top: 18rpx;
-  
-
 }
-.tipC{
+
+.tipC {
   padding: 4rpx;
   margin-right: 6rpx;
 }
-
 
 .blue {
   border: 1rpx #589daf solid;

@@ -2,7 +2,8 @@ var qqmap = require('./vendor/qqmap-sdk.min.js')
 App({
   data: {
     host: 'http://120.77.37.251:8888',
-    newHost:'http://localhost:8081/chao'
+     newHost:'http://localhost:8081/chao'
+   // newHost: 'http://120.77.37.251:13000/chao'
   },
   onLaunch: function () {
   },
@@ -11,8 +12,11 @@ App({
     wx.getLocation({
       type: 'wgs84',
       success: function (res) {
+        console.log(res);
         var lat = res.latitude
         var lon = res.longitude
+        that.globalData.lat = lat;
+        that.globalData.lon = lon;
         var demo = new qqmap({
           key: 'SZBBZ-DARAP-ACWDA-VN2QZ-XO4F5-3UBNM'
         });

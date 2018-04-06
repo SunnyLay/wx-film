@@ -10,7 +10,7 @@ Page({
     theater: [],
     lat: 1,
     lng: 1,
-    page: 1,
+    page: 0,
     size: 10
   },
   onLoad: function () {
@@ -29,8 +29,8 @@ Page({
 
     wx.request({
       url: getApp().data.newHost + '/film/getCinemas/' 
-      + that.data.lat + '/' 
-      + that.data.lng + '/' 
+      + getApp().globalData.lat + '/' 
+      + getApp().globalData.lon + '/' 
       + that.data.page + '/'
       + that.data.size,
       success: function (res) {
