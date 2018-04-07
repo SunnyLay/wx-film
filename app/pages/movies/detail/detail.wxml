@@ -40,7 +40,7 @@
   <view>
     <view wx:for="{{comment}}" class="audience-item">
       <view class="avatarUrl">
-        <image src="{{item.avatarurl}}" style="width:58rpx;height:58rpx; border-radius: 50%;"></image>
+        <image src="{{item.avatarurl !='' ?item.avatarurl:'/img/icon/default-avatar.png'}}" style="width:58rpx;height:58rpx; border-radius: 50%;"></image>
       </view>
       <view class="audienceD">
         <view>
@@ -59,6 +59,6 @@
 </view>
 <navigator url="../../theaterList/theaterList?title={{des.title}}&id={{des.id}}" class="buy">优惠购票</navigator>
 <navigator>
-<video id="myVideo" class="video" src="{{des.vd}}"></video>
+  <video id="myVideo" class="video" src="{{des.vd}}"></video>
 </navigator>
 <view style="height:100px;"></view>

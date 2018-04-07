@@ -13,7 +13,8 @@ Page({
     start: 1,
     movies:{},
     page: 1,
-    size: 10
+    size: 10,
+    swiperImg: ["1.png", "2.png", "3.png"]
   },
   onLoad: function () {
     var that = this
@@ -35,7 +36,8 @@ Page({
           if (res.data.code == 0) {
             that.setData({
               movies: res.data.content,
-              page: that.data.page+1
+              page: that.data.page+1,
+              host:getApp().data.newHost
             })
           } else {
             wx.showToast({
