@@ -1,8 +1,10 @@
+
 <image src="{{des.img}}" class="filter"></image>
 <view class="head">
   <view class="cover">
-    <navigator url="{{des.vd}}" class="playUrl">
-      <image src="{{des.img}}" style="width:212rpx;height:290rpx;"></image>
+    <navigator class="playUrl">
+     <video src="{{des.vd}}" bindtap="click" style="width:212rpx;height:290rpx;" controls hidden='{{!hidden}}'></video>
+      <image src="{{des.img}}" style="width:212rpx;height:290rpx;" hidden='{{hidden}}'></image>
     </navigator>
     <view class="jianjie">
       <view>

@@ -67,5 +67,11 @@ Page({
     this.setData({
       flexed: !that.data.flexed
     })
+  },
+  click:function(){
+    var that = this;
+    that.setData({
+    hidden:!that.data.hidden
+    });
   }
 })

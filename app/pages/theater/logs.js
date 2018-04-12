@@ -11,21 +11,16 @@ Page({
     lat: 1,
     lng: 1,
     page: 0,
-    size: 10
+    size: 10,
+    cityName:''
   },
   onLoad: function () {
     var that = this;
     this.setData({
-      'head.currentCity': app.globalData.currentCity
+      'head.currentCity': app.globalData.currentCity,
+      cityName: app.globalData.currentCity
     })
-    wx.request({
-      url: getApp().data.host + '/data/cityTheater?city=武汉',
-      success: function (res) {
-        // that.setData({
-        //   theater: res.data.data
-        // })
-      }
-    })
+     this.getCityDetail(app.globalData.currentCity);
 
     wx.request({
       url: getApp().data.newHost + '/film/getCinemas/' 
@@ -56,7 +51,8 @@ Page({
   },
 
   onReachBottom: function () {
-    var that = this
+    var that = this;
+    this.dealCity();//处理数据
     wx.request({
       url: getApp().data.newHost + '/film/getCinemas/'
       + that.data.lat + '/'
@@ -96,6 +92,66 @@ Page({
       })
     }
     )
+  },
+  getCityDetail: function (cityName) {
+    var that = this;
+    wx.request({
+      url: getApp().data.newHost + '/city/get-city-by-name/' + cityName,
+      data: {},
+      success: function (res) {
+        if (res.data.code == 0) {
+          that.setData({
+            lat: res.data.content.lat ,
+            lng: res.data.content.log
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            content: res.data.msg,
+            icon: 'fail',
+            duration: 2000
+          })
+        }
+      }
+    })
+  },
+  dealCity:function(){
+    //如果定位的城市和当前页面的城市不匹配
+    //就清除
+    var that = this;
+    console.info(that.data.cityName != app.globalData.currentCity);
+    if (that.data.cityName != app.globalData.currentCity){
+      this.getCityDetail(app.globalData.currentCity);//定位经纬度
+      this.firstLoadData(); 
+    }
+  },
+  firstLoadData:function(){
+    wx.request({
+      url: getApp().data.newHost + '/film/getCinemas/'
+      + getApp().globalData.lat + '/'
+      + getApp().globalData.lon + '/'
+      + that.data.page + '/'
+      + that.data.size,
+      success: function (res) {
+        console.log(res);
+        if (res.data.code == 0) {
+          that.setData({
+            theater: res.data.content,
+            page: that.data.page + 1
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            content: res.data.msg,
+            duration: 2000
+          })
+        }
+
+        // that.setData({
+        //   theater: res.data.data
+        // })
+      }
+    })
   }
 
 })

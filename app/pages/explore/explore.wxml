@@ -1,7 +1,7 @@
 <scroll-view>
   <view class="list flex-box" wx:for="{{vMovie}}">
     <view class="list-vmovie"  bindtap="listenerButton" data-id="{{index}}" >
-      <video class="video" src="{{item.videoUrl}}" controls hidden="{{!status[index]}}">
+      <video class="video" src="http:{{item.videoUrl}}" controls hidden="{{!status[index]}}">
       </video>
       <image class="img" src="{{item.imgUrl}}" hidden="{{status[index]}}"></image>
     </view>
